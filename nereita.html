@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despierta a Aurora</title>
+    <!-- Fuente estilo Disney -->
+    <link href="https://fonts.googleapis.com/css2?family=Elsie&display=swap" rel="stylesheet">
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Elsie', cursive;
+            background-color: #f3e1d7; /* Rosa suave como fondo */
+            text-align: center;
+            padding: 30px;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-mist.png');
+            background-repeat: repeat; /* Patrón suave de madera */
+            color: #3e2a47; /* Color de texto oscuro pero cálido */
+            margin: 0;
+        }
+
+        h1 {
+            color: #d6a1c1; /* Color de título suave y romántico */
+            font-size: 50px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(255, 182, 193, 0.6); /* Sombra suave */
+            font-family: 'Elsie', cursive;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #ff6fb2; /* Rosa brillante para los mensajes */
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .correct {
+            font-size: 28px;
+            color: #ff1493; /* Rosa más fuerte para el éxito */
+            font-weight: bold;
+            background: rgba(255, 182, 193, 0.6);
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .error {
+            font-size: 24px;
+            color: #c8102e; /* Rojo para errores */
+            font-weight: bold;
+            text-shadow: 2px 2px 6px rgba(255, 0, 0, 0.7);
+        }
+
+        input {
+            padding: 12px;
+            font-size: 20px;
+            margin: 10px;
+            border-radius: 15px;
+            border: 3px solid #ff69b4; /* Borde rosa */
+            width: 60%;
+            background-color: #ffe6f0;
+            box-shadow: 0px 0px 8px rgba(255, 105, 180, 0.6); /* Sombra suave para los inputs */
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff1493;
+            background-color: #fff;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 20px;
+            background-color: #ff69b4; /* Rosa fuerte */
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff1493; /* Rosa más fuerte al pasar el ratón */
+            box-shadow: 0px 0px 15px rgba(255, 20, 147, 0.8); /* Efecto de resplandor */
+        }
+
+        #attempts {
+            font-size: 22px;
+            margin-top: 15px;
+            color: #ff6fb2;
+        }
+
+        .animation {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="animation">¡Despierta a Aurora! ✨</h1>
+
+    <div id="intro-message" class="message animation">
+        Como ves en el cuaderno, Aurora está durmiendo bajo un hechizo maldito. Solo una palabra mágica puede romper el hechizo. ¡Escríbela y despiértala!
+    </div>
+
+    <div id="input-area">
+        <input type="text" id="password" placeholder="Escribe la palabra mágica" />
+        <button onclick="checkPassword()">Despertar a Aurora</button>
+    </div>
+
+    <div id="attempts" class="message"></div>
+    <div id="response-message" class="animation"></div>
+
+    <script>
+        let attempts = 0;
+        const maxAttempts = 5;
+        const correctPassword = "Primavera";
+
+        function checkPassword() {
+            const userInput = document.getElementById('password').value;
+            const responseMessage = document.getElementById('response-message');
+            const attemptsMessage = document.getElementById('attempts');
+            const inputArea = document.getElementById('input-area');
+
+            if (attempts < maxAttempts) {
+                if (userInput === correctPassword) {
+                    responseMessage.innerHTML = "<div class='correct'>Aurora: ¡Gracias por despertarme! Has desbloqueado Fig. 4, échale un vistazo. :)</div>";
+                    inputArea.classList.add('hidden'); // Ocultar el campo de la contraseña cuando Aurora se despierte
+                    attemptsMessage.innerHTML = "";
+                } else {
+                    attempts++;
+                    if (attempts < maxAttempts) {
+                        attemptsMessage.innerHTML = `<div class='error'>¡Esa no es! Sigue intentándolo. Te quedan ${maxAttempts - attempts} intentos.</div>`;
+                    } else {
+                        attemptsMessage.innerHTML = "<div class='error'>¡Te has quedado sin intentos! La palabra mágica era 'Primavera'.</div>";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
